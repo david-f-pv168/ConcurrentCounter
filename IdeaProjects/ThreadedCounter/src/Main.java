@@ -19,18 +19,19 @@ public class Main {
 class Counter implements Runnable {
     public void run() {
         while (Count.getCurrentValue() <= 50) {
-            System.out.println(Thread.currentThread().getName() + ": " + Count.next());
+            Count.next();
+            for (long l = 0l; l < 1000000; l++) {}
         }
     }
 }
 
 class Count {
     private static int currentValue = 0;
-    public static synchronized int next() {
-        return currentValue++;
+    public static synchronized void next() {
+        System.out.println(String.format("%s: %d",Thread.currentThread().getName(), currentValue++));
     }
 
-    public static int getCurrentValue() {
+    public static synchronized int getCurrentValue() {
         return currentValue;
     }
 
